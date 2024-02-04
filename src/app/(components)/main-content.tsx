@@ -4,18 +4,18 @@ import { ChatPanel } from "./chat-panel";
 
 export function MainContent() {
     return (
-        <div className="flex justify-evenly items-center h-full bg-cyan-100">
-            <div className="flex-1 h-full">
-                <Editor />
+        <div className="flex flex-grow-1 justify-evenly h-full bg-slate-100">
 
-            </div>
-            <div className="flex-1 h-full">
+            <div className="flex-1 ">
                 <Editor />
-
             </div>
-            <div className="flex-1 h-full">
+
+            <div className="flex-1 ">
+                <Editor />
+            </div>
+
+            <div className="w-80">
                 <ChatPanel />
-
             </div>
         </div>
     )

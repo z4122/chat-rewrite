@@ -6,9 +6,11 @@ import { Footer } from "./(components)/footer";
 // wordWrap
 export default function Home() {
   return (
-    <div className="flex flex-col h-lvh">
+    <div className="flex flex-col h-screen">
       <Title />
-      <MainContent />
+      <div className="flex-1">
+        <MainContent />
+      </div>
       <Footer />
     </div>
   );
