@@ -11,7 +11,7 @@ export default function Home() {
       <div className="flex-1">
         <MainContent />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
