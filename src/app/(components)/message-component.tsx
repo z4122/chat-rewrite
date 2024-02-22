@@ -1,6 +1,7 @@
 
 export type MessageProps = {
     message: string,
+    role: 'bot' | 'user'
     time?: string
 }
 
@@ -15,13 +16,16 @@ export function Message(props: MessageProps) {
 
     const currentTime = `${year}-${month}-${date} ${hour}:${minute}:${second}`;
 
-    const { message, time = currentTime } = props;
+    const { message, time = currentTime, role } = props;
 
     return (
-        <div className="flex justify-center align-middle bg-slate-100 mt-3.5 rounded-lg">
+        <div className="flex justify-center align-middle mt-3.5 rounded-lg">
             <div className="flex flex-col w-full mx-1 my-1 text-black">
-                <div className="text-xs text-neutral-500">{time}</div>
-                <div className="flex-1">{message}</div>
+                <div className="flex text-xs text-neutral-500 pb-1">
+                    <div className="pr-2" >{role === 'bot' ? 'Bot' : 'You'}</div>
+                    <div>{time}</div>
+                </div>
+                <div className="flex-1 bg-slate-100 rounded p-1">{message}</div>
             </div>
         </div >
     )
