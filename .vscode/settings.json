@@ -1,7 +1,11 @@
 {
-    "CodeGPT.apiKey": "CodeGPT Plus Beta",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    },
-    "compile-hero.disable-compile-files-on-did-save-code": true
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false, // required
+  "editor.formatOnPaste": true, // optional
+  "editor.formatOnSave": true, // optional
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.autoSave": "onFocusChange", // optional but recommended
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  } // set as "true" to run 'prettier' last not first
 }

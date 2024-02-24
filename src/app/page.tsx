@@ -1,7 +1,5 @@
-import Image from "next/image";
-import { Title } from "./(components)/title";
-import { MainContent } from "./(components)/main-content";
-import { Footer } from "./(components)/footer";
+import { Title } from './(components)/title';
+import { MainContent } from './(components)/main-content';
 
 // wordWrap
 export default function Home() {

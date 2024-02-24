@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindFunctions": ["classNames"],
+  "singleQuote": true,
+  "trailingComma": "es5"
+}

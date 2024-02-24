@@ -1,7 +1,3 @@
 export function Footer() {
-    return (
-        <div className="pb-16 pt-8 bg-slate-200">
-            Footer
-        </div>
-    )
+  return <div className="bg-slate-200 pb-16 pt-8">Footer</div>;
 }

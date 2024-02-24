@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import MonacoEditor from 'react-monaco-editor';
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const code = `
 “斗之力，三段！”
@@ -23,7 +23,7 @@ const code = `
 “谁知道呢，或许做了什么亏心事，惹得神灵降怒了吧…”
 
 周围传来的不屑嘲笑以及惋惜轻叹，落在那如木桩待在原地的少年耳中，恍如一根根利刺狠狠的扎在心脏一般，让得少年呼吸微微急促。
-`
+`;
 
 export function Editor() {
   const [showEditor, setShowEditor] = useState(false);
@@ -37,25 +37,22 @@ export function Editor() {
   return (
     <>
       {showEditor && (
-
         <div className="flex h-full flex-col justify-center align-middle">
-          <div className="h-full mx-5 my-5 bg-white rounded-lg">
-            <MonacoEditor className={'rounded-lg'}
+          <div className="mx-5 my-5 h-full rounded-lg bg-white">
+            <MonacoEditor
               language="javascript"
               theme="vs"
               value={code}
               options={{
                 selectOnLineNumbers: true,
-                wordWrap: "on"
-              }
-              }
+                wordWrap: 'on',
+              }}
               onChange={console.log}
               editorDidMount={console.log}
             />
           </div>
         </div>
-
       )}
     </>
-  )
+  );
 }
