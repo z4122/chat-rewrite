@@ -1,10 +1,23 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import {
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Message } from './message-component';
 
+type ChatContent = {
+  role: 'bot' | 'user';
+  message: string;
+};
+
 export function ChatPanel() {
+  const [content, setContent] = useState<ChatContent[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [text, setText] = useState('');
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -32,9 +45,25 @@ export function ChatPanel() {
     }
   }, []);
 
-  const onClickSend = useCallback(() => {}, []);
+  const onClickSend = useCallback(() => {
+    console.log('click send', text);
+    setContent((preContent) => [
+      ...preContent,
+      { role: 'user', message: text },
+    ]);
+    setContent((preContent) => [
+      ...preContent,
+      { role: 'bot', message: '我是全能写作王' },
+    ]);
+  }, [text]);
 
-  const onTextChanged = useCallback((text) => {}, []);
+  const onTextChanged = useCallback(
+    (event: { target: { value: SetStateAction<string> } }) => {
+      setText(event.target.value);
+      console.log('origin', event.target.value);
+    },
+    []
+  );
 
   return (
     <div className="flex size-full justify-center align-middle">
@@ -50,19 +79,23 @@ export function ChatPanel() {
             }
             role="bot"
           />
+          {content.map((item, index) => {
+            return (
+              <Message key={index} message={item.message} role={item.role} />
+            );
+          })}
         </div>
         <div className="position: relative h-auto">
           <textarea
             ref={textareaRef}
             className="scrollbar-hide max-h-24 w-full resize-none rounded-xl border-2 border-solid border-slate-300 pb-2 pl-1 pr-6 pt-1"
             rows={1}
-            onChange={(event) => {
-              onTextChanged(event.target);
-            }}
+            value={text}
+            onChange={onTextChanged}
           ></textarea>
           <img
             src={'./send.svg'}
-            className="position: absolute right-1 top-2/4 h-4 w-4 -translate-y-3/4"
+            className="position: absolute right-1 top-2/4 h-4 w-4 -translate-y-3/4 hover:cursor-pointer hover:opacity-70"
             onClick={onClickSend}
           ></img>
         </div>
