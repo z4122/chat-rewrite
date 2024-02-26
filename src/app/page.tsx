@@ -4,11 +4,10 @@ import { MainContent } from './(components)/main-content';
 // wordWrap
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex h-screen flex-col">
       <Title />
-      <div className="flex-1">
-        <MainContent />
-      </div>
+      <MainContent />
+      {/* </div> */}
       {/* <Footer /> */}
     </div>
   );

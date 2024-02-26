@@ -1,10 +1,10 @@
-import dynamic from 'next/dynamic';
 import { Editor } from './editor';
 import { ChatPanel } from './chat-panel';
+import React from 'react';
 
 export function MainContent() {
   return (
-    <div className="flex-grow-1 flex h-full justify-evenly bg-slate-100">
+    <div className={'flex flex-grow justify-evenly overflow-auto bg-slate-100'}>
       <div className="flex-1 ">
         <Editor />
       </div>

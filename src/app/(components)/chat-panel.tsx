@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import { Message } from './message-component';
+import Image from 'next/image';
 
 type ChatContent = {
   role: 'bot' | 'user';
@@ -46,7 +47,9 @@ export function ChatPanel() {
   }, []);
 
   const onClickSend = useCallback(() => {
-    console.log('click send', text);
+    if (text === '') {
+      return;
+    }
     setContent((preContent) => [
       ...preContent,
       { role: 'user', message: text },
@@ -68,11 +71,70 @@ export function ChatPanel() {
   return (
     <div className="flex size-full justify-center align-middle">
       <div className="mx-5 my-5 flex w-full flex-col rounded-lg bg-white text-black">
-        <div className="flex-1">
+        <div className="flex-1 overflow-auto">
           <Message message={'你是谁'} role="user" />
           <Message message={'我是全能写作王'} role="bot" />
-
           <Message message={'你能干什么'} role="user" />
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />
+          <Message message={'你是谁'} role="user" />
+          <Message message={'我是全能写作王'} role="bot" />
+          <Message message={'你能干什么'} role="user" />
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />
+          <Message message={'你是谁'} role="user" />
+          <Message message={'我是全能写作王'} role="bot" />
+          <Message message={'你能干什么'} role="user" />
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />{' '}
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />{' '}
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />{' '}
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />{' '}
+          <Message
+            message={
+              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
+            }
+            role="bot"
+          />{' '}
           <Message
             message={
               '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
@@ -93,11 +155,14 @@ export function ChatPanel() {
             value={text}
             onChange={onTextChanged}
           ></textarea>
-          <img
+          <Image
+            alt="send message"
             src={'./send.svg'}
+            width={24}
+            height={24}
             className="position: absolute right-1 top-2/4 h-4 w-4 -translate-y-3/4 hover:cursor-pointer hover:opacity-70"
             onClick={onClickSend}
-          ></img>
+          ></Image>
         </div>
       </div>
     </div>

@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 export function Title() {
   return (
-    <div className="flex  pt-4 justify-between pb-4 ps-4 pe-4 bg-slate-100 border-solid border border-stone-200">
-      <img src={'/logo.png'} className="w-32 h-10" alt="logo" />
-      <div className="flex align-middle items-center gap-4 text-base text-neutral-500">
+    <div className="flex justify-between border border-solid border-stone-200 bg-slate-100 pb-4 pe-4 ps-4 pt-4">
+      <img src={'/logo.png'} className="h-10 w-32" alt="logo" />
+      <div className="flex items-center gap-4 align-middle text-base text-neutral-500">
         <Link className="cursor-pointer" href="/">
           Home
         </Link>
@@ -15,7 +15,7 @@ export function Title() {
           Contact
         </Link>
         <Link className="cursor-pointer" href="www.github.com">
-          <img src={'/github.svg'} className="w-5 h-5"></img>
+          <img src={'/github.svg'} className="h-5 w-5"></img>
         </Link>
       </div>
     </div>
