@@ -1,7 +1,10 @@
 'use client';
 
-import MonacoEditor from 'react-monaco-editor';
-import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+const MonacoEditor = dynamic(() => import('react-monaco-editor'), {
+  ssr: false,
+});
 
 const code = `
 “斗之力，三段！”
@@ -26,33 +29,25 @@ const code = `
 `;
 
 export function Editor() {
-  const [showEditor, setShowEditor] = useState(false);
-
-  useEffect(() => {
-    setShowEditor(true);
-  }, []);
-
   // const code = this.state.code;
 
   return (
     <>
-      {showEditor && (
-        <div className="flex h-full flex-col justify-center align-middle">
-          <div className="mx-5 my-5 h-full rounded-lg bg-white">
-            <MonacoEditor
-              language="javascript"
-              theme="vs"
-              value={code}
-              options={{
-                selectOnLineNumbers: true,
-                wordWrap: 'on',
-              }}
-              onChange={console.log}
-              editorDidMount={console.log}
-            />
-          </div>
+      <div className="flex h-full flex-col justify-center align-middle">
+        <div className="mx-5 my-5 h-full rounded-lg bg-white">
+          <MonacoEditor
+            language="javascript"
+            theme="vs"
+            value={code}
+            options={{
+              selectOnLineNumbers: true,
+              wordWrap: 'on',
+            }}
+            onChange={console.log}
+            editorDidMount={console.log}
+          />
         </div>
-      )}
+      </div>
     </>
   );
 }
