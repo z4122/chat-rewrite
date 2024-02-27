@@ -1,3 +1,7 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
 export type MessageProps = {
   message: string;
   role: 'bot' | 'user';
@@ -5,15 +9,19 @@ export type MessageProps = {
 };
 
 export function Message(props: MessageProps) {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1; // getMonth() 返回的月份从 0 开始，所以需要 +1
-  const date = now.getDate();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
-  const second = now.getSeconds();
+  const [currentTime, setCurrentTime] = useState('');
 
-  const currentTime = `${year}-${month}-${date} ${hour}:${minute}:${second}`;
+  useEffect(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1; // getMonth() 返回的月份从 0 开始，所以需要 +1
+    const date = now.getDate();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const second = now.getSeconds();
+
+    setCurrentTime(`${year}-${month}-${date} ${hour}:${minute}:${second}`);
+  }, []);
 
   const { message, time = currentTime, role } = props;
 
