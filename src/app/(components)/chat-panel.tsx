@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { Message } from './message-component';
 import Image from 'next/image';
+import { initChatGPT } from '../utils/openai';
 
 type ChatContent = {
   role: 'bot' | 'user';
@@ -44,6 +45,8 @@ export function ChatPanel() {
         }
       });
     }
+
+    initChatGPT();
   }, []);
 
   const onClickSend = useCallback(() => {
