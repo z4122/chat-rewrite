@@ -9,17 +9,23 @@ import {
 } from 'react';
 import { Message } from './message-component';
 import Image from 'next/image';
-import { initChatGPT } from '../utils/openai';
-
-type ChatContent = {
-  role: 'bot' | 'user';
-  message: string;
-};
+import { sendMessage } from '../utils/openai';
+import { useMessageStore, MessageType } from '../store/message';
 
 export function ChatPanel() {
-  const [content, setContent] = useState<ChatContent[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState('');
+  const messages = useMessageStore((state) => state.messages);
+  const addUserMessage = useMessageStore((state) => state.addUserMessage);
+  const addAssistantMessage = useMessageStore(
+    (state) => state.addAssistantMessage
+  );
+
+  const [currentMessages, setCurrentMessages] = useState(messages);
+
+  useEffect(() => {
+    setCurrentMessages(messages);
+  }, [messages]);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -45,28 +51,24 @@ export function ChatPanel() {
         }
       });
     }
-
-    initChatGPT();
   }, []);
 
   const onClickSend = useCallback(() => {
     if (text === '') {
       return;
     }
-    setContent((preContent) => [
-      ...preContent,
-      { role: 'user', message: text },
-    ]);
-    setContent((preContent) => [
-      ...preContent,
-      { role: 'bot', message: '我是全能写作王' },
-    ]);
+    addUserMessage(text);
+    const m = [...messages, { role: 'user', content: text } as MessageType];
+    sendMessage(m).then((response) => {
+      if (response) {
+        addAssistantMessage(response);
+      }
+    });
   }, [text]);
 
   const onTextChanged = useCallback(
     (event: { target: { value: SetStateAction<string> } }) => {
       setText(event.target.value);
-      console.log('origin', event.target.value);
     },
     []
   );
@@ -75,80 +77,13 @@ export function ChatPanel() {
     <div className="flex size-full justify-center align-middle">
       <div className="mx-5 my-5 flex w-full flex-col rounded-lg bg-white text-black">
         <div className="flex-1 overflow-auto">
-          <Message message={'你是谁'} role="user" />
-          <Message message={'我是全能写作王'} role="bot" />
-          <Message message={'你能干什么'} role="user" />
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />
-          <Message message={'你是谁'} role="user" />
-          <Message message={'我是全能写作王'} role="bot" />
-          <Message message={'你能干什么'} role="user" />
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />
-          <Message message={'你是谁'} role="user" />
-          <Message message={'我是全能写作王'} role="bot" />
-          <Message message={'你能干什么'} role="user" />
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />{' '}
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />{' '}
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />{' '}
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />{' '}
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />{' '}
-          <Message
-            message={
-              '我能帮助你完善论文，重写小说，降低查重，关于文章的一切问题都可以问我。'
-            }
-            role="bot"
-          />
-          {content.map((item, index) => {
-            return (
-              <Message key={index} message={item.message} role={item.role} />
-            );
-          })}
+          {currentMessages.map((message, index) => (
+            <Message
+              key={index}
+              message={message.content}
+              role={message.role}
+            />
+          ))}
         </div>
         <div className="position: relative h-auto">
           <textarea

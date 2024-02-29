@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 export type MessageProps = {
   message: string;
-  role: 'bot' | 'user';
+  role: 'assistant' | 'user';
   time?: string;
 };
 
@@ -29,7 +29,9 @@ export function Message(props: MessageProps) {
     <div className="mt-3.5 flex justify-center rounded-lg align-middle ">
       <div className="mx-1 my-1 flex w-full flex-col text-black">
         <div className="flex pb-1 text-xs text-neutral-500">
-          <div className="pr-2">{role === 'bot' ? 'Bot' : 'You'}</div>
+          <div className="pr-2">
+            {role === 'assistant' ? 'assistant' : 'You'}
+          </div>
           <div>{time}</div>
         </div>
         <div className="flex-1 rounded bg-slate-100 p-1">{message}</div>

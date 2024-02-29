@@ -1,15 +1,21 @@
 import OpenAI from 'openai';
 
-export async function initChatGPT() {
-  const openai = new OpenAI({
-    apiKey: 'sk-3', // This is the default and can be omitted
-    dangerouslyAllowBrowser: true,
-    baseURL: 'https://api.zhiyungpt.com/v1',
-  });
+const openai = new OpenAI({
+  apiKey: 'sk-3', // This is the default and can be omitted
+  dangerouslyAllowBrowser: true,
+  baseURL: 'https://api.zhiyungpt.com/v1',
+});
 
+export async function sendMessage(
+  messages: {
+    role: 'user' | 'assistant';
+    content: string;
+  }[]
+) {
   const chatCompletion = await openai.chat.completions.create({
-    messages: [{ role: 'user', content: 'Say this is a test' }],
+    messages,
     model: 'gpt-4',
   });
-  console.log('chatCompletion', chatCompletion);
+
+  return chatCompletion.choices[0].message.content;
 }
