@@ -2,6 +2,7 @@
 
 import {
   SetStateAction,
+  use,
   useCallback,
   useEffect,
   useRef,
@@ -11,6 +12,7 @@ import { Message } from './message-component';
 import Image from 'next/image';
 import { sendMessage } from '../utils/openai';
 import { useMessageStore, MessageType } from '../store/message';
+import { useArticleStore } from '../store/article-store';
 
 export function ChatPanel() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -21,11 +23,22 @@ export function ChatPanel() {
     (state) => state.addAssistantMessage
   );
 
+  const originalText = useArticleStore((state) => state.originalText);
+  const resultText = useArticleStore((state) => state.resultText);
+
   const [currentMessages, setCurrentMessages] = useState(messages);
 
   useEffect(() => {
     setCurrentMessages(messages);
   }, [messages]);
+
+  useEffect(() => {
+    addUserMessage(0, originalText);
+  }, [originalText, addUserMessage]);
+
+  useEffect(() => {
+    addUserMessage(1, resultText);
+  }, [resultText, addUserMessage]);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -57,12 +70,17 @@ export function ChatPanel() {
     if (text === '') {
       return;
     }
-    addUserMessage(text);
-    const m = [...messages, { role: 'user', content: text } as MessageType];
-    sendMessage(m).then((response) => {
-      if (response) {
-        addAssistantMessage(response);
-      }
+    addUserMessage(messages.length + 1, text);
+    const newMessages = [
+      ...messages,
+      { role: 'user', content: text } as MessageType,
+    ];
+
+    console.log('message', messages);
+
+    addAssistantMessage(newMessages.length, '');
+    sendMessage(newMessages, (message) => {
+      addAssistantMessage(newMessages.length, message);
     });
   }, [text]);
 
@@ -77,13 +95,18 @@ export function ChatPanel() {
     <div className="flex size-full justify-center align-middle">
       <div className="mx-5 my-5 flex w-full flex-col rounded-lg bg-white text-black">
         <div className="flex-1 overflow-auto">
-          {currentMessages.map((message, index) => (
-            <Message
-              key={index}
-              message={message.content}
-              role={message.role}
-            />
-          ))}
+          {currentMessages
+            .filter((_, index) => {
+              // filter first two messages as article and result
+              return index > 1;
+            })
+            .map((message, index) => (
+              <Message
+                key={index}
+                message={message.content}
+                role={message.role as 'assistant' | 'user'}
+              />
+            ))}
         </div>
         <div className="position: relative h-auto">
           <textarea
@@ -92,6 +115,13 @@ export function ChatPanel() {
             rows={1}
             value={text}
             onChange={onTextChanged}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                onClickSend();
+                setText('');
+              }
+            }}
           ></textarea>
           <Image
             alt="send message"

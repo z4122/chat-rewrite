@@ -10,6 +10,7 @@ export type MessageProps = {
 
 export function Message(props: MessageProps) {
   const [currentTime, setCurrentTime] = useState('');
+  const [currentMessage, setCurrentMessage] = useState('');
 
   useEffect(() => {
     const now = new Date();
@@ -25,6 +26,10 @@ export function Message(props: MessageProps) {
 
   const { message, time = currentTime, role } = props;
 
+  useEffect(() => {
+    setCurrentMessage(message);
+  }, [message]);
+
   return (
     <div className="mt-3.5 flex justify-center rounded-lg align-middle ">
       <div className="mx-1 my-1 flex w-full flex-col text-black">
@@ -34,7 +39,7 @@ export function Message(props: MessageProps) {
           </div>
           <div>{time}</div>
         </div>
-        <div className="flex-1 rounded bg-slate-100 p-1">{message}</div>
+        <div className="flex-1 rounded bg-slate-100 p-1">{currentMessage}</div>
       </div>
     </div>
   );
