@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Language } from './language';
 
 export function Title() {
   return (
@@ -21,7 +22,7 @@ export function Title() {
         <Link className="cursor-pointer" href="/contact">
           Contact
         </Link> */}
-        <div className="cursor-pointer">Language</div>
+        <Language />
         <a
           className="cursor-pointer"
           href="https://github.com/z4122/chat-rewrite"
