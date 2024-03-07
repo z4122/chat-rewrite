@@ -12,7 +12,7 @@ export function Title() {
         height={40}
       />
       <div className="flex items-center gap-4 align-middle text-base text-neutral-500">
-        <Link className="cursor-pointer" href="/">
+        {/* <Link className="cursor-pointer" href="/">
           Home
         </Link>
         <Link className="cursor-pointer" href="/tutorial">
@@ -20,7 +20,8 @@ export function Title() {
         </Link>
         <Link className="cursor-pointer" href="/contact">
           Contact
-        </Link>
+        </Link> */}
+        <div className="cursor-pointer">Language</div>
         <a
           className="cursor-pointer"
           href="https://github.com/z4122/chat-rewrite"
