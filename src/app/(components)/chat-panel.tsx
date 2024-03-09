@@ -13,10 +13,12 @@ import Image from 'next/image';
 import { sendMessage } from '../utils/openai';
 import { useMessageStore, MessageType } from '../store/message';
 import { useArticleStore } from '../store/article-store';
+import { classNames } from '../utils/common';
 
 export function ChatPanel() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState('');
+  const [focused, setFocused] = useState(false);
   const messages = useMessageStore((state) => state.messages);
   const addUserMessage = useMessageStore((state) => state.addUserMessage);
   const addAssistantMessage = useMessageStore(
@@ -111,9 +113,12 @@ export function ChatPanel() {
         <div className="position: relative h-auto">
           <textarea
             ref={textareaRef}
-            className="scrollbar-hide max-h-24 w-full resize-none rounded-xl border-2 border-solid border-slate-300 pb-2 pl-1 pr-6 pt-1"
+            className={classNames(
+              'scrollbar-hide max-h-24 w-full resize-none rounded-xl border-2 border-solid border-slate-300 pb-2 pl-1 pr-6 pt-1',
+              text === '' ? 'text-gray-400' : ''
+            )}
             rows={1}
-            value={text}
+            value={text === '' && !focused ? '输入指令开始交谈' : text}
             onChange={onTextChanged}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
@@ -121,6 +126,12 @@ export function ChatPanel() {
                 onClickSend();
                 setText('');
               }
+            }}
+            onFocus={() => {
+              setFocused(true);
+            }}
+            onBlur={() => {
+              setFocused(false);
             }}
           ></textarea>
           <Image
