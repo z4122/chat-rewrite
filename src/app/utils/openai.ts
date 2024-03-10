@@ -11,6 +11,7 @@ export async function sendMessage(
     role: 'user' | 'assistant';
     content: string;
   }[],
+  // eslint-disable-next-line no-unused-vars
   setContent: (content: string) => void
 ) {
   const stream = await openai.chat.completions.create({

@@ -16,6 +16,7 @@ const code = `“斗之力，三段！”
 `;
 
 type EditorProps = {
+  // eslint-disable-next-line no-unused-vars
   textChanged: (content: string) => void;
 };
 
@@ -33,6 +34,7 @@ export function Editor({ textChanged }: EditorProps) {
             options={{
               selectOnLineNumbers: true,
               wordWrap: 'on',
+              wrappingStrategy: 'simple',
             }}
             onChange={textChanged}
             // editorDidMount={console.log}

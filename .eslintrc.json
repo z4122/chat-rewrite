@@ -1,37 +1,22 @@
 {
-    "parserOptions": {
-        "ecmaVersion": 2020, // 支持 ES6 语法
-        "sourceType": "module", // 支持 import/export 语法
-        "ecmaFeatures": {
-            "jsx": true // 启用 JSX
-        }
-    },
-    "extends": ["eslint:recommended", "next"],
-    "rules": {
-        // 启用额外规则
-        "indent": [
-            "error",
-            2
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        // override configuration set by extending "eslint:recommended"
-        "no-empty": "warn",
-        "no-cond-assign": [
-            "error",
-            "always"
-        ],
-        // 禁用基础配置汇总的规则
-        "for-direction": "off"
+  "parserOptions": {
+    "ecmaVersion": 2020, // 支持 ES6 语法
+    "sourceType": "module", // 支持 import/export 语法
+    "ecmaFeatures": {
+      "jsx": true // 启用 JSX
     }
+  },
+  "extends": ["eslint:recommended", "next"],
+  "rules": {
+    // 启用额外规则
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    // override configuration set by extending "eslint:recommended"
+    "no-empty": "warn",
+    "no-cond-assign": ["error", "always"],
+    // 禁用基础配置汇总的规则
+    "for-direction": "off"
+  }
 }

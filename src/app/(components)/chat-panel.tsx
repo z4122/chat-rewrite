@@ -2,7 +2,6 @@
 
 import {
   SetStateAction,
-  use,
   useCallback,
   useEffect,
   useRef,
@@ -14,8 +13,11 @@ import { sendMessage } from '../utils/openai';
 import { useMessageStore, MessageType } from '../store/message';
 import { useArticleStore } from '../store/article-store';
 import { classNames } from '../utils/common';
+import { useTranslation } from 'next-i18next';
 
 export function ChatPanel() {
+  const { t } = useTranslation('common');
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState('');
   const [focused, setFocused] = useState(false);
@@ -110,7 +112,7 @@ export function ChatPanel() {
               />
             ))}
         </div>
-        <div className="position: relative h-auto">
+        <div className="position: relative flex h-auto">
           <textarea
             ref={textareaRef}
             className={classNames(
@@ -118,7 +120,7 @@ export function ChatPanel() {
               text === '' ? 'text-gray-400' : ''
             )}
             rows={1}
-            value={text === '' && !focused ? '输入指令开始交谈' : text}
+            value={text === '' && !focused ? t('chat_tips') : text}
             onChange={onTextChanged}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
@@ -139,7 +141,7 @@ export function ChatPanel() {
             src={'./send.svg'}
             width={24}
             height={24}
-            className="position: absolute right-1 top-2/4 h-4 w-4 -translate-y-3/4 hover:cursor-pointer hover:opacity-70"
+            className="position: absolute right-1 top-2/4 h-4 w-4 -translate-y-2/4 hover:cursor-pointer hover:opacity-70"
             onClick={onClickSend}
           ></Image>
         </div>
