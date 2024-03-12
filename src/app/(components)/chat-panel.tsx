@@ -49,11 +49,7 @@ export function ChatPanel() {
     const textarea = textareaRef.current;
 
     if (textarea && typeof window !== 'undefined') {
-      textarea.style.height = 'auto';
-      textarea.style.height = textarea?.scrollHeight + 'px';
-
       textarea.addEventListener('input', () => {
-        textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + 'px';
 
         // check whether current height exceed max height
@@ -80,8 +76,6 @@ export function ChatPanel() {
       ...messages,
       { role: 'user', content: text } as MessageType,
     ];
-
-    console.log('message', messages);
 
     addAssistantMessage(newMessages.length, '');
     sendMessage(newMessages, (message) => {
@@ -117,7 +111,7 @@ export function ChatPanel() {
           <textarea
             ref={textareaRef}
             className={classNames(
-              'scrollbar-hide max-h-24 w-full resize-none rounded-xl border-2 border-solid border-slate-300 pb-2 pl-1 pr-6 pt-1',
+              'scrollbar-hide h-9 max-h-24 w-full resize-none rounded-xl border-2 border-solid border-slate-300 pb-2 pl-1 pr-6 pt-1',
               text === '' ? 'text-gray-400' : ''
             )}
             rows={1}
