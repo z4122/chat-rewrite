@@ -15,7 +15,7 @@ export function Message(props: MessageProps) {
   useEffect(() => {
     const now = new Date();
     const year = now.getFullYear();
-    const month = now.getMonth() + 1; // getMonth() 返回的月份从 0 开始，所以需要 +1
+    const month = now.getMonth() + 1; // The return value of getMonth() starts from zero
     const date = now.getDate();
     const hour = now.getHours();
     const minute = now.getMinutes();

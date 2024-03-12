@@ -1,7 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import { Language } from './language';
+import Settings from './settings';
+import { useState } from 'react';
 
 export function Title() {
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
   return (
     <div className="flex justify-between border border-solid border-stone-200 bg-slate-100 pb-4 pe-4 ps-4 pt-4">
       <Image
@@ -22,6 +28,17 @@ export function Title() {
           Contact
         </Link> */}
         <Language />
+        <Image
+          alt={'github'}
+          src={'/github.svg'}
+          className="h-5 w-5 cursor-pointer"
+          width={20}
+          height={20}
+          onClick={() => {
+            console.log(settingsOpen);
+            setSettingsOpen(!settingsOpen);
+          }}
+        ></Image>
         <a
           className="cursor-pointer"
           href="https://github.com/z4122/chat-rewrite"
@@ -34,6 +51,7 @@ export function Title() {
             height={20}
           ></Image>
         </a>
+        <Settings isOpen={settingsOpen} />
       </div>
     </div>
   );
