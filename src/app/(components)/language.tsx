@@ -10,9 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { i18nConfig } from '@/i18nConfig';
 
 export function Language() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
 
-  const { i18n } = useTranslation();
   const currentLocale = i18n.language;
   const router = useRouter();
   const currentPathname = usePathname();
