@@ -29,8 +29,8 @@ export function Title() {
         </Link> */}
         <Language />
         <Image
-          alt={'github'}
-          src={'/github.svg'}
+          alt={'settings'}
+          src={'/settings.svg'}
           className="h-5 w-5 cursor-pointer"
           width={20}
           height={20}
