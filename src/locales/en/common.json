@@ -1,4 +1,9 @@
 {
   "chat_tips": "Input command to start chat",
-  "languages": "Language"
+  "languages": "Language",
+  "input_key_tips": "Input your api key to access chatgpt",
+  "input_proxy_tips": "Input proxy address if needed",
+  "done": "Done",
+  "cancel": "Cancel",
+  "set_key": "Set Api Key"
 }

@@ -1,16 +1,15 @@
 import OpenAI from 'openai';
 
 let openai = new OpenAI({
-  apiKey: 'sk-', // This is the default and can be omitted
+  apiKey: localStorage.getItem('apiKey') ?? '', // This is the default and can be omitted
   dangerouslyAllowBrowser: true,
-  baseURL: 'https://api.zhiyungpt.com/v1',
 });
 
 export function updateOpenAI() {
   openai = new OpenAI({
     apiKey: localStorage.getItem('apiKey') ?? '', // This is the default and can be omitted
     dangerouslyAllowBrowser: true,
-    baseURL: localStorage.getItem('proxy'),
+    // baseURL: localStorage.getItem('proxy'),
   });
 }
 

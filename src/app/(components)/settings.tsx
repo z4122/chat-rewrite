@@ -2,8 +2,11 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { updateOpenAI } from '../utils/openai';
+import { useTranslation } from 'react-i18next';
 
 export default function Settings({ isOpen }: { isOpen: boolean }) {
+  const { t } = useTranslation('common');
+
   const [open, setOpen] = useState(isOpen);
 
   const cancelButtonRef = useRef(null);
@@ -12,7 +15,7 @@ export default function Settings({ isOpen }: { isOpen: boolean }) {
   const [apiKey, setApiKey] = useState('');
 
   const onClickDone = () => {
-    // 保存数据到
+    // Save data to local storage
     localStorage.setItem('proxy', proxy);
     localStorage.setItem('apiKey', apiKey);
     updateOpenAI();
@@ -68,16 +71,16 @@ export default function Settings({ isOpen }: { isOpen: boolean }) {
                         as="h3"
                         className="text-base font-semibold leading-6 text-gray-900"
                       >
-                        Set Api Key
+                        {t('set_key')}
                       </Dialog.Title>
                       <div className="mt-2 flex flex-col gap-1 leading-5 text-gray-800">
                         <label className="flex flex-row">
-                          <div className="min-w-16">Key</div>
+                          <div className="min-w-16">Api Key</div>
                           <input
                             type="text"
                             name="key"
                             className="min-w-40  flex-1 rounded-md border-2 border-solid border-slate-300 text-sm text-gray-800"
-                            placeholder="Input your chat-gpt api key"
+                            placeholder={t('input_key_tips')}
                             onChange={(e) => setApiKey(e.target.value)}
                           />
                         </label>
@@ -87,7 +90,7 @@ export default function Settings({ isOpen }: { isOpen: boolean }) {
                             type="text"
                             name="proxy"
                             className="min-w-40 flex-1 rounded-md border-2 border-solid border-slate-300 text-sm text-gray-800"
-                            placeholder="Input proxy if needed"
+                            placeholder={t('input_proxy_tips')}
                             onChange={(e) => setProxy(e.target.value)}
                           />
                         </label>
@@ -101,7 +104,7 @@ export default function Settings({ isOpen }: { isOpen: boolean }) {
                     className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
                     onClick={onClickDone}
                   >
-                    Done
+                    {t('done')}
                   </button>
                   <button
                     type="button"
@@ -109,7 +112,7 @@ export default function Settings({ isOpen }: { isOpen: boolean }) {
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >
-                    Cancel
+                    {t('cancel')}
                   </button>
                 </div>
               </Dialog.Panel>

@@ -1,4 +1,9 @@
 {
   "chat_tips": "输入指令开始交谈",
-  "languages": "语言"
+  "languages": "语言",
+  "input_key_tips": "输入关键api key访问chatgpt",
+  "input_proxy_tips": "如果使用代理，请输入代理地址",
+  "done": "完成",
+  "cancel": "取消",
+  "set_key": "设置api key"
 }

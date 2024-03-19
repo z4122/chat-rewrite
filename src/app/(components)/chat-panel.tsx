@@ -16,7 +16,6 @@ import { classNames } from '../utils/common';
 import { useTranslation } from 'next-i18next';
 
 export function ChatPanel() {
-  console.log('chatpanel');
   const { t } = useTranslation('common');
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
