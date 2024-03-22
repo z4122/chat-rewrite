@@ -18,23 +18,21 @@ export function Editor({ textChanged }: EditorProps) {
   textChanged(t('article_content'));
 
   return (
-    <>
-      <div className="flex h-full flex-col justify-center align-middle">
-        <div className="mx-5 my-5 h-full overflow-hidden rounded-lg bg-white">
-          <MonacoEditor
-            language="javascript"
-            theme="vs"
-            value={t('article_content')}
-            options={{
-              selectOnLineNumbers: true,
-              wordWrap: 'on',
-              wrappingStrategy: 'simple',
-            }}
-            onChange={textChanged}
-            // editorDidMount={console.log}
-          />
-        </div>
+    <div className="flex flex-1 flex-col justify-center align-middle">
+      <div className="mx-5 mb-5 mt-1 h-full overflow-hidden rounded-lg bg-white">
+        <MonacoEditor
+          language="javascript"
+          theme="vs"
+          value={t('article_content')}
+          options={{
+            selectOnLineNumbers: true,
+            wordWrap: 'on',
+            wrappingStrategy: 'simple',
+          }}
+          onChange={textChanged}
+          // editorDidMount={console.log}
+        />
       </div>
-    </>
+    </div>
   );
 }

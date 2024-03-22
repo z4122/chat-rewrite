@@ -90,21 +90,27 @@ export function ChatPanel() {
   );
 
   return (
-    <div className="flex size-full justify-center align-middle">
+    <div className="flex size-full justify-center pt-3 align-middle">
       <div className="mx-5 my-5 flex w-full flex-col rounded-lg bg-white text-black">
         <div className="flex-1 overflow-auto">
-          {currentMessages
-            .filter((_, index) => {
-              // filter first two messages as article and result
-              return index > 1;
-            })
-            .map((message, index) => (
-              <Message
-                key={index}
-                message={message.content}
-                role={message.role as 'assistant' | 'user'}
-              />
-            ))}
+          {currentMessages.length !== 2 ? (
+            currentMessages
+              .filter((_, index) => {
+                // filter first two messages as article and result
+                return index > 1;
+              })
+              .map((message, index) => (
+                <Message
+                  key={index}
+                  message={message.content}
+                  role={message.role as 'assistant' | 'user'}
+                />
+              ))
+          ) : (
+            <div className="flex size-full items-center justify-center px-4">
+              {t('chat_empty_tips')}
+            </div>
+          )}
         </div>
         <div className="position: relative flex h-auto">
           <textarea
